@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock title %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="{% static 'js/jquery-3.6.3.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+
+    <style>
+        {% block styles %} {% endblock styles %}
+    </style>
+
+</head>
+<body class="m-0 p-0" style="overflow-x: hidden;">
+    <div class="container-fluid wrapper">
+        <div class="row header bg-dark">
+            <div class="col-lg-2 m-0 p-0">
+                <div class="bg-primary text-white font-weight-bold py-2 text-center" style="cursor: pointer" onclick="window.location.href='/'">
+                    <span >Today's Special Offer</span>
+                </div>
+            </div>
+
+            <div class="col-lg-5 middle" style="margin-top: 4.5px;">
+                <form action="#" class="form-inline">
+                    <input type="text" value="Search..." class="form-control form-control-sm col-9 txt_pro">
+                    <button class="btn btn-warning btn-sm btn_pro">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+            </div>
+
+            <div class="col-lg-2 col-5 my-2 my-lg-0">
+                <button class="btn btn-primary btn-block">
+                    <a href="/cart" class="text-decoration-none text-white">View Your Cart</a>
+                    <a href="/cart"><i class="fas fa-shopping-cart text-white"></i></a>
+                </button>
+            </div>
+            {% if session.uid %} 
+                <div class="col-lg-1 mt-2 col-3 text-center">
+                    <a href="/myprofile"><i class="fas fa-user text-white"> {{session.username}}<i class="fas fa-angle-down text-white"></i></i></a>
+                </div>
+            {% else %}
+            <div class="col-lg-1 mt-2 col-3 text-center">
+                <a href="/userloadlogin"><i class="fas fa-user text-white"> Login<i class="fas fa-angle-down text-white"></i></i></a>
+            </div>
+            {% endif %}
+
+            <div class="col-lg-2 p-0 col-4 my-2 my-lg-0">
+                <button class="btn btn-warning btn-block">
+                    <a href="/contact" class="text-decoration-none text-white">ContactUs</a>
+                </button>
+            </div>
+        </div>
+
+        <div class="row menu">
+            <div class="col-lg-12">
+                <nav class="nav navbar navbar-expand-lg navbar-light">
+                    <a href="/" class="navbar-brand px-5">
+                        <button class="btn btn-warning font-weight-bold">C</button>
+                            <span class="text-dark font-weight-bold">orner</span>
+                             <span class="text-primary font-weight-bold">Store</span>
+                    </a>
+                    <ul class="navbar-nav text-center px-5">
+
+                        <li class="nav-item"><a href="#" class="nav-link text-primary">Events</a></li>
+
+                        <li class="nav-item"><a href="#" class="nav-link ">About</a></li>
+
+                        <li class="nav-item"><a href="{% url 'specail_offers' %}" class="nav-link ">Best Deals</a></li>
+
+                        <li class="nav-item"><a href="#" class="nav-link ">Searvices</a></li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a href="#" class="nav-link mr-lg-3"><i class="fas fa-phone-alt"></i>
+                             (+0123)234 567</a></li>
+
+                        <li class="nav-item"><a href="#" class="nav-link "><i class="far fa-envelope"></i>
+                             store@corner.com</a></li>
+
+                        <li class="nav-item"><a href="#" class="nav-link"><i class="far fa-moon"></i></a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+      {% block body %} {% endblock body %}
+
+    <div class="container-fluid">
+        <div class="row bg-warning py-5 mt-5">
+            <div class="offset-lg-3 col-lg-6">
+                <form action="#" class="form-inline">
+                    <span class="font-weight-bold text-white text-center mx-2">Sign Up For Our Newsletter</span>
+                    <input type="text" class="form-control txt_pro">
+                    <button class="btn btn-danger btn_pro">SUBSCRIBE NOW</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row bg-dark py-5 mt-2 justify-text-center px-5">
+            <div class="col-lg-3">
+                <div class="font-weight-bold text-white">INFORMATION</div><br>
+                <a href="#" class="text-center grey text-decoration-none">
+                    <i class="fas fa-angle-right grey pr-2 i"></i>Events</a><br><br>
+
+                <a href="#" class="text-center grey text-decoration-none ">
+                    <i class="fas fa-angle-right grey pr-2"></i>Events</a><br><br>
+
+                <a href="#" class="text-center grey text-decoration-none">
+                    <i class="fas fa-angle-right grey pr-2"></i>About Us</a><br><br>
+
+                <a href="#" class="text-center grey text-decoration-none">
+                    <i class="fas fa-angle-right grey pr-2"></i>Best Deals</a><br><br>
+
+                <a href="#" class="text-center grey text-decoration-none">
+                    <i class="fas fa-angle-right grey pr-2"></i>Services</a><br><br>
+
+                <a href="#" class="text-center grey text-decoration-none">
+                    <i class="fas fa-angle-right grey pr-2"></i>Short Codes</a><br><br>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="font-weight-bold text-white">POLICY INFO</div><br>
+
+                <a href="#" class="text-center grey text-decoration-none">
+                    <i class="fas fa-angle-right grey pr-2"></i>FAQ</a><br><br>
+
+                <a href="#" class="text-center grey text-decoration-none">
+                    <i class="fas fa-angle-right grey pr-2"></i>Privacy Policy</a><br><br>
+
+                <a href="#" class="text-center grey text-decoration-none">
+                    <i class="fas fa-angle-right grey pr-2"></i>Terms Of Use</a><br><br>
+            </div>
+
+            <div class="col-lg-3 middle">
+                <div class="font-weight-bold text-white">WHAT IN STORES</div><br>
+
+                <a href="#" class="text-center grey text-decoration-none hover">
+                    <i class="fas fa-angle-right grey pr-2 pro_con hover"></i>Pet Food</a><br><br>
+
+                <a href="#" class="text-center grey text-decoration-none hover">
+                    <i class="fas fa-angle-right grey pr-2 hover"></i>Frozen Snacks</a><br><br>
+
+                <a href="#" class="text-center grey text-decoration-none hover">
+                    <i class="fas fa-angle-right grey pr-2 hover"></i>Kitchen</a><br><br>
+
+                <a href="#" class="text-center grey text-decoration-none hover">
+                    <i class="fas fa-angle-right grey pr-2 hover"></i>Branded Foods</a><br><br>
+
+                <a href="#" class="text-center grey text-decoration-none hover">
+                    <i class="fas fa-angle-right grey pr-2 hover"></i>Households</a><br><br>
+            </div>
+
+            <div class="col-lg-3 right">
+                <div class="font-weight-bold text-white justify-text-center">TWITTER POSTS</div><br>
+                <div class="grey"><i class="fab fa-twitter text-primary"></i>&nbsp;&nbsp;&nbsp;01 day ago</div>
+                <div class="grey">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Non numquam</div>
+                <div class="grey">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="text-light text-decoration-none">http://sd.ds/13jklf#</a>
+                    eius modi</div>
+                <div class="grey">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tempora incidunt ut labore et</div>
+                <div class="grey">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="text-light text-decoration-none">http://sd.ds/1389kjklf#</a>
+                    quo nulla.</div><br>
+
+                <div class="grey"><i class="fab fa-twitter m-0 text-primary offset-lg-1"></i>&nbsp;&nbsp;&nbsp;02 day ago</div>
+                <div class="grey">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Con numquam <a href="#" class="text-light text-decoration-none">http://fd.uf/56hfg#</a></div>
+                <div class="grey">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;eius modi tempora incidunt ut</div>
+                <div class="grey">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;labore et <a href="#" class="text-light text-decoration-none">http://fd.uf/56hfg#</a>qua</div>
+                <div class="grey">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nulla.</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row  bg-dark">
+            <div class="col-lg-3 left">
+                <div class="row pt-5 pb-5">
+                    <div class="col-lg-12">
+                        <h6 class="text-primary font-weight-bold">100% Secure Payments</h6>
+                        <img src="{% static 'image/footer1img.png' %}" alt="" width="70%" height="35px"> 
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 middle">
+                <div class="row pt-5 justify-text-left">
+                    <div class="col-lg-12">
+                        <h5 class="text-white font-weight-bold">Connect With Us</h5>
+                        <button style="border-radius: 100%; width: 12%; height: 35px;"><i class="fab fa-facebook-f"></i></button>
+                        <button style="border-radius: 100%; width: 12%; height: 35px;"><i class="fab fa-twitter"></i></button>
+                        <button style="border-radius: 100%; width: 12%; height: 35px;"><i class="fab fa-google-plus-g"></i></button>
+                        <button style="border-radius: 100%; width: 12%; height: 35px;"><i class="fab fa-instagram"></i></button>
+                        <button style="border-radius: 100%; width: 12%; height: 35px;"><i class="fab fa-dribbble"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'js/api.js' %}"></script>
+</body>
+</html>

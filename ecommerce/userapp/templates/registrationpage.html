@@ -1,0 +1,193 @@
+{% extends 'userbase.html' %}
+{% load static %}
+{% block styles %}
+        .txt_pro
+        {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .btn_pro
+        {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+        /* .categoryDetails1
+        {
+            width: 95%;
+            margin: 0px 2.5%;
+        } */
+        .grey
+        {
+            color: grey;
+        }
+        .product
+        {
+            border: 0px solid rgb(231, 225, 225);
+        }
+        .procon
+        {
+            color: rgb(148, 146, 146)
+        }
+        .mybtn:hover
+        {
+            background-color: rgba(0, 0, 255, 0.651);
+            border: 1px solid rgba(0, 0, 255, 0.651);
+        }
+        .Star:hover
+        {
+            color: rgba(0, 0, 255, 0.651);
+        }
+        .txt
+        {
+            border: none;
+            outline: none;
+            background-color:rgb(245, 247, 247);
+        }
+        .txt:focus
+        {
+            border: 1px solid rgb(60, 95, 247);
+            background-color: white;
+        }
+        .Email
+        {
+            color: black;
+        }
+        .textt
+        {
+            border: none;
+            outline: none;
+            background-color:rgb(245, 247, 247);
+        }
+        .textt:focus
+        {
+            border: 1px solid rgb(60, 95, 247);
+        }
+{% endblock styles %}
+{% block title %} Registration Page {% endblock title %}
+{% block body %}
+<div class="row bg-primary py-3">
+    <div  class="col-lg-1 pl-4">
+        <div class="text-warning text-center"><i class="fas fa-home pl-5"></i></div>
+    </div>
+
+    <div class="col-lg-5 p-0">
+        <a href="/" class="text-white text-decoration-none">Home</a>
+        <span class="px-4 text-center">|</span>
+        <span class="text-center px-2">Sign In & Sign Up</span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-3 left p-0">
+        <nav class="nav">
+            <ul class="navbar-nav" style="width:100%;">
+                {% for cat in cat %}
+                <li class="nav-item" style="width: 100%;" >
+                    <a href="#" class="nav-link bg-light pl-5 text-dark font-weight-bold mb-1" data-toggle="collapse" data-target="#cat-{{cat.id}}" aria-expanded="true" aria-controls="collapseOne">{{cat.category_name}}&nbsp;<i class="fas fa-angle-down"></i></a>
+                    <div id="cat-{{cat.id}}" class="collapse" aria-labelledby="headingOne">
+                        <div class="card-body px-5">
+                            {% for subcat in cat.subcategories %}
+                                    {% if subcat.id != None %}
+                                        <a href="/product/{{cat.id}}/{{subcat.subcategory_id}}" class="d-block text-secondary my-1">{{subcat.subCategory_name}}</a>
+                                    {% endif %}
+                                {% endfor %}
+                            <a href="/product/{{cat.id}}" class="d-block text-secondary my-1">All {{cat.category_name}}</a>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+                <li class="nav-item" style="width: 100%;" >
+                    <a href="/product" class="nav-link bg-light pl-5 text-dark font-weight-bold mb-1">All Products&nbsp;<i class="fas fa-angle-down"></i></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="col-lg-9 middle p-0">
+        <div class="row p-0 m-0">
+            <div class="col-lg-12 p-0 py-5">
+                <h1 class="text-dark font-weight-bolder text-center p-0  pt-4 pb-3">Sign In & Sign Up</h1>
+            </div>
+        </div>
+        <div class="row p-0 m-0">
+            <div class="col-lg-3"></div>
+
+            <div class="col-lg-6">
+                <div class="row m-0 p-0">
+                    <div class="col-lg-12 border">
+                            <div class="text-right pt-1">
+                                <a href="" class="text-decoration-none text-dark"><i class="fas fa-times toggler"></i></a>
+                            </div>
+                            <div style="font-size: large;" class="pt-3 px-2">Create an account</div><br>
+                            <div class="px-5 pb-3 text-center">
+                                <button style="border-radius: 70%; width: 10%; height: 29px; border: none;"><i class="fab fa-facebook-f"></i></button>
+                                <button style="border-radius: 70%; width: 10%; height: 29px; border: none;"><i class="fab fa-twitter"></i></button>
+                                <button style="border-radius: 70%; width: 10%; height: 29px; border: none;"><i class="fab fa-linkedin-in"></i></button>
+                            </div>
+
+                        <form method="post" action="register">
+                                {% csrf_token %}
+                            <div class="px-2 py-2">
+                                <input type="text" placeholder="Username" name="uname" class="textt text text-block px-2 py-2 rounded" style="width: 100%;" required/>
+                            </div>
+                            <div class="px-2 py-2">
+                                <input type="password" placeholder="Password" name="pwd" class="textt text text-block px-2 py-2 rounded" style="width: 100%;" required/>
+                            </div>
+                            <div class="px-2 py-2">
+                                <input type="email" placeholder="Email Address" name="email" class="textt text text-block px-2 py-2 rounded" style="width: 100%;" required/>
+                            </div>
+                            <div class="px-2 py-2">
+                                <input type="text" placeholder="Phone Number " name="number" class="textt text text-block px-2 py-2 rounded" style="width: 100%;" required/>
+                            </div>
+                            <div class="pt-2 pb-4 px-2">
+                                <button type="submit" name="userRegister" value="true" class="btn btn-block btn-primary font-weight-bold py-2">Register</button>
+                            </div>
+
+                            <button class="btn btn-block btn-dark text-white font-weight-bold py-3" style="width: -webkit-fill-available; margin: auto -15px; border-radius: 0%;">Forgot your password?</button>
+
+                        </form>
+                    </div>
+                       {% for m in messages %}
+                          <h3 style="color:red">{{m}}</h3>
+                       {% endfor %}
+                <div>
+            </div>
+
+            <div class="col-lg-3"></div>
+        </div>
+
+    </div>
+</div>
+</div>
+
+
+<div class="container-fluid p-0 m-0">
+    <div class="row my-5 m-0 pl-3">
+        <div class="col-lg-4 px-5 py-3">
+            <div class="px-3 pt-4 pb-1 text-left" style="font-size: 35px;"><i class="fas fa-shopping-cart text-warning"></i></div><br>
+            <div class="font-weight-bolder text-left" style="font-size: large;">Nam Libero Tempore</div><br>
+            <div style="color: rgb(143, 139, 139);">Temporibus autem quibusdam et aut officiis <br>
+                debitis aut rerum necessitatibus saepe eveniet <br>
+                 ut et voluptates repudiandae sint et.
+            </div>
+        </div>
+
+        <div class="col-lg-4 px-5 py-3">
+            <div class="px-3 pt-4 pb-1" style="font-size: 35px;"><i class="far fa-chart-bar text-warning"></i></div><br>
+            <div class="font-weight-bolder" style="font-size: large;">Nam Libero Tempore</div><br>
+            <div style="color: rgb(143, 139, 139); text-align: justify;">Temporibus autem quibusdam et aut officiis <br>
+                debitis aut rerum necessitatibus saepe eveniet <br>
+                 ut et voluptates repudiandae sint et.
+            </div>
+        </div>
+
+        <div class="col-lg-4 px-5 py-3">
+            <div class="px-3 pt-4 pb-1" style="font-size: 35px;"><i class="fas fa-truck-moving text-warning"></i></div><br>
+            <div class="font-weight-bolder" style="font-size: large;">Nam Libero Tempore</div><br>
+            <div style="color: rgb(143, 139, 139); text-align: justify;">Temporibus autem quibusdam et aut officiis <br>
+                debitis aut rerum necessitatibus saepe eveniet <br>
+                 ut et voluptates repudiandae sint et.
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

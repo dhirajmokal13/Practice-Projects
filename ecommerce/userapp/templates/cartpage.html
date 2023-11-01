@@ -1,0 +1,162 @@
+{% extends 'userbase.html' %}
+{% load static %}
+{% block styles %}
+        .txt_pro
+        {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .btn_pro
+        {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+        .grey
+        {
+            color: grey;
+        }
+        .Remove
+        {
+            color: red;
+        }
+{% endblock styles %}
+{% block title %} Cart Page {% endblock title %}
+{% block body %}
+
+<div class="row bg-primary py-3">
+    <div  class="col-lg-1 pl-4">
+        <div class="text-warning text-center"><i class="fas fa-home pl-5"></i></div>
+    </div>
+
+    <div class="col-lg-5 p-0">
+        <a href="/" class="text-white text-decoration-none">Home</a>
+        <span class="px-4 text-center">|</span>
+        <span class="text-center px-2">Shopping Cart</span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-3 left p-0">
+        <nav class="nav">
+            <ul class="navbar-nav" style="width:100%;">
+                {% for cat in cat %}
+                <li class="nav-item" style="width: 100%;" >
+                    <a href="#" class="nav-link bg-light pl-5 text-dark font-weight-bold mb-1" data-toggle="collapse" data-target="#cat-{{cat.id}}" aria-expanded="true" aria-controls="collapseOne">{{cat.category_name}}&nbsp;<i class="fas fa-angle-down"></i></a>
+                    <div id="cat-{{cat.id}}" class="collapse" aria-labelledby="headingOne">
+                        <div class="card-body px-5">
+                            {% for subcat in cat.subcategories %}
+                                    {% if subcat.id != None %}
+                                        <a href="/product/{{cat.id}}/{{subcat.subcategory_id}}" class="d-block text-secondary my-1">{{subcat.subCategory_name}}</a>
+                                    {% endif %}
+                                {% endfor %}
+                            <a href="/product/{{cat.id}}" class="d-block text-secondary my-1">All {{cat.category_name}}</a>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+                <li class="nav-item" style="width: 100%;" >
+                    <a href="/product" class="nav-link bg-light pl-5 text-dark font-weight-bold mb-1">All Products&nbsp;<i class="fas fa-angle-down"></i></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="col-lg-9 middle p-0">
+        <div class="row p-0 m-0">
+            <div class="col-lg-12 p-0 pt-5 text-center" style="font-size: 40px;">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+        </div>
+
+        <div class="row p-0 m-0">
+            <div class="col-lg-12 p-0 pb-2">
+                <h1 class="text-dark font-weight-bolder text-center p-0  pt-2 pb-3">Shopping Cart</h1>
+            </div>
+        </div>
+
+        {% for m in messages %}
+            <h5 style="color:green" class="middle my-2 row mx-3">{{m}}</h5>
+         {% endfor %}
+
+        <div class="row p-0 mx-3 border py-2">
+            <div class="col-lg-6 font-weight-bold">
+                Product Details
+            </div>
+            <div class="col-lg-4 font-weight-bold text-center">
+                Quantity
+            </div>
+            <div class="col-lg-2 font-weight-bold text-center">
+                <a href="clearcart" class="Remove text-center">Remove all</a>
+            </div>
+        </div>
+        {% for item in cart %}
+          {% if item.status == 'cart' %}
+            <div class="row py-2 mx-3 my-4 border  shadow">
+              <div class="col-lg-7 py-0">
+                  <img src="/media/{{item.product_image}}" alt="" width="18%" height="95px">&nbsp;&nbsp;
+                  <span class="text-dark font-weight-bold" style="cursor:pointer" title="view {{item.product_name}}" onclick="window.location.href='/singlepro/{{item.pid}}'">
+                    {{item.product_name}} {% if item.availiblity == "UNAVAILABLE" %} <span class="text-danger">(unavailable)</span> {% endif %}
+                  </span>
+              </div>
+              <div class="col-lg-3 pt-4 text-center">
+                  <input type="number" name="quantity" min="0" data-id="{{item.id}}" data-price="{{item.product_discountPrice}}" placeholder="Add Quantity" value="1" class="text-center">
+              </div>
+              <div class="col-lg-2 pt-4 text-center">
+                  <span class="font-weight-bold text-center" name="cart-price" id="cart-price-{{item.id}}" style="font-size: 22px;">{{item.product_discountPrice}}</span>
+                  <a href="cartstatuschange/{{item.id}}" class="text-primary d-block text-decoration-none cursor-pointer" style>Save for later</a>
+                  <div><a href="clearcart/{{item.id}}" class="Remove">Remove</a></div>
+              </div>
+            </div>
+          {% endif %}
+       {% endfor %}
+
+
+        <div class="row py-3 mx-3 my-4 border-bottom">
+            <div class="offset-lg-7 col-lg-3 p-0 text-center">
+                <span class="font-weight-bold" style="font-size: 22px;">Sub-Total</span>
+                <input type="number" id="subTotal" value="{{cost}}" class="text-center rounded" disabled>
+            </div>
+
+            <div class="col-lg-2 text-center p-0 pt-3">
+                <span class="font-weight-bold text-center" id="total-costs" style="font-size: 28px;">{{cost}}</span>
+            </div>
+        </div>
+
+        <div class="row py-2 mx-3 my-4">
+            <div class="offset-lg-7 col-lg-5 p-0 text-center">
+                <button class="btn btn-danger rounded px-5 py-2">Checkout</button>
+            </div>
+        </div>
+
+
+        <div class="row p-0 m-0">
+            <div class="col-lg-12 p-0 pb-2">
+                <h1 class="text-dark font-weight-bolder text-center p-0  pt-2 pb-3">Save Later</h1>
+            </div>
+        </div>
+
+        {% for item in cart %}
+          {% if item.status == 'save later' %}
+            <div class="row py-2 mx-3 my-4 border  shadow">
+              <div class="col-lg-7 py-0">
+                  <img src="/media/{{item.product_image}}" alt="" width="18%" height="95px">&nbsp;&nbsp;<span class="text-dark font-weight-bold"  style="cursor:pointer" title="view {{item.product_name}}" onclick="window.location.href='/singlepro/{{item.pid}}'">{{item.product_name}}{% if item.availiblity == "UNAVAILABLE" %} <span class="text-danger">(unavailable)</span> {% endif %}</span>
+              </div>
+              <div class="col-lg-3 pt-4 text-center">
+                  <input type="number" min="0" placeholder="Add Quantity" value="1" class="text-center" disabled/>
+              </div>
+              <div class="col-lg-2 pt-4 text-center">
+                  <span class="font-weight-bold text-center" style="font-size: 22px;">{{item.product_discountPrice}}</span>
+                  {% if item.availiblity == "AVAILABLE" %}
+                    <a href="cartstatuschange/{{item.id}}" class="text-primary d-block text-decoration-none cursor-pointer">Move To Cart</a>
+                  {% else %}
+                    <a href="#" class="text-primary d-block text-decoration-none cursor-pointer" disabled/>Move To Cart</a>
+                  {% endif %}
+                  <div><a href="clearcart/{{item.id}}" class="Remove">Remove</a></div>
+              </div>
+            </div>
+          {% endif %}
+       {% endfor %}
+
+    </div>
+</div>
+<script src="{% static 'js/cart.js' %}"></script>
+{% endblock body %}

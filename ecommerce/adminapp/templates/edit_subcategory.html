@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+	<!-- MAIN -->
+		<div class="main">
+			<!-- MAIN CONTENT -->
+			<div class="main-content">
+				<div class="container-fluid">
+					<h3 class="page-title">Edit subCategory</h3>
+					<div class="row">
+						<div class="col-md-6">
+
+
+<!-- INPUTS -->
+<div class="panel">
+    <div class="panel-heading">
+		<h3 class="panel-title"></h3>
+	</div>
+
+	<div class="panel-body">
+		<div>
+		<form method="POST" action="/updatesubCategory/{{std.id}}">
+			{% csrf_token %}
+
+            category:<select name="category">
+                       <option>Select Category</option>
+
+                       {% for c in cat %}
+                            {% if c.id == std.category_id %}
+                                <option value="{{c.id}}" selected>{{c.category_name}}</option>
+                            {% else %}
+                                <option value="{{c.id}}">{{c.category_name}}</option>
+			                {% endif %}
+                       {% endfor %}
+                     </select><br><br><br>
+
+            subcategory Name:<input type="text" name="subcategory" class="form-control" value="{{std.subCategory_name}}">
+
+			<button type="submit">Submit</button>
+
+		</form>
+		</div>
+	</div>
+
+<!-- END INPUTS -->
+	</div>
+</div>
+					  </div>
+					</div>
+				</div>
+			</div>
+{% endblock content %}

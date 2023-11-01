@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+	<!-- MAIN -->
+		<div class="main">
+			<!-- MAIN CONTENT -->
+			<div class="main-content">
+				<div class="container-fluid">
+					<h3 class="page-title">Category</h3>
+					<div class="row">
+						<div class="col-md-6">
+
+
+<!-- INPUTS -->
+<div class="panel">
+    <div class="panel-heading">
+		<h3 class="panel-title"></h3>
+	</div>
+
+	<div class="panel-body">
+		<div>
+		<form method="post" action="/update/{{datae.id}}">
+			{% csrf_token %}
+			Category Name:<input type="text"  name="category" class="form-control" value="{{datae.category_name}}" placeholder=""><br>
+
+			<button type="submit">Submit</button>
+
+		</form>
+		</div>
+	</div>
+
+<!-- END INPUTS -->
+	</div>
+</div>
+					  </div>
+					</div>
+				</div>
+			</div>
+{% endblock content %}

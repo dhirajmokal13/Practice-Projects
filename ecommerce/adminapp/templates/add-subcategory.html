@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+	<!-- MAIN -->
+		<div class="main">
+			<!-- MAIN CONTENT -->
+			<div class="main-content">
+				<div class="container-fluid">
+					<h3 class="page-title">subCategory</h3>
+					<div class="row">
+						<div class="col-md-6">
+
+
+<!-- INPUTS -->
+<div class="panel">
+    <div class="panel-heading">
+		<h3 class="panel-title"></h3>
+	</div>
+
+	<div class="panel-body">
+		<div>
+		<form method="POST" action="insertsubCategory">
+			{% csrf_token %}
+			Category Name:
+			      <select name="category">
+					  <option>Select category</option>
+					  {% for c in cat %}
+					  <option value="{{c.id}}">{{c.category_name}}</option>
+					  {% endfor %}
+				  </select>
+			<br>
+
+
+			SubCategory Name:<input type="text"  name="subcategory" class="form-control" placeholder=""><br>
+
+			<button type="submit">Submit</button>
+			<button type="reset">Cancel</button>
+
+		</form>
+		</div>
+	</div>
+
+<!-- END INPUTS -->
+	</div>
+</div>
+					  </div>
+					</div>
+				</div>
+			</div>
+{% endblock content %}

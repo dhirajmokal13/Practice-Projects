@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static 'img/user.png' %} " class="img-circle" alt="Avatar"> Hello,{{username}} <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+
+<!-- MAIN -->
+		<div class="main">
+			<!-- MAIN CONTENT -->
+			<div class="main-content">
+				<div class="container-fluid">
+					<h3 class="page-title">Product</h3>
+                    <a href="{% url 'addProduct' %}" class="btn btn-success float-right">Add product</a>
+					<div class="row">
+
+						<div class="col-md-12">
+
+							<!-- TABLE HOVER -->
+							<div class="panel">
+								<div class="panel-heading">
+									<h3 class="panel-title"></h3>
+								</div>
+								<div class="panel-body">
+									<div class="table-responsive">
+									   <table class="table table-hover">
+										<thead>
+											<tr>
+												<th>Id</th>
+												<th>Category</th>
+												<th>subcategory</th>
+
+												<th>Product Name</th>
+												<th>Product Price</th>
+												<th>Discount</th>
+												<th>Discount Price</th>
+												<th>Description</th>
+												<th>Image</th>
+												<th>Actions</th>
+												<th>Status</th>
+
+											</tr>
+										</thead>
+										<tbody>
+										{% for p in pro %}
+											<tr>
+												<td>{{p.id}}</td>
+												<td>{{p.category_name}}</td>
+												<td>{{p.subCategory_name}}</td>
+												<td>{{p.product_name}}</td>
+												<td>{{p.product_price}}</td>
+												<td>{{p.product_discount}}</td>
+												<td>{{p.product_discountPrice}}</td>
+												<td>{{p.product_discription}}</td>
+												<td><img width="50" src="{{p.product_image.url}}"></td>
+
+
+												<td> <a href="{% url 'editproduct' p.id %}">Edit</a>
+            									<a href="{% url 'deleteproduct' p.id %}">Delete</a></td>
+
+
+											<td><a href="{% url 'statusFunctionalitypro' p.id p.status %}">{{p.status}}</a></td>    <!--	copy from showstudent.html-->
+
+											</tr>
+
+										{% endfor %}
+										</tbody>
+									</table>
+									</div>
+								</div>
+							</div>
+							<!-- END TABLE HOVER -->
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- END MAIN CONTENT -->
+		</div>
+		<!-- END MAIN -->
+
+{% endblock content %}

@@ -1,0 +1,207 @@
+{% extends 'userbase.html' %}
+{% load static %}
+{% block styles %}
+.txt_pro
+{
+border-top-right-radius: 0;
+border-bottom-right-radius: 0;
+}
+.btn_pro
+{
+border-top-left-radius: 0;
+border-bottom-left-radius: 0;
+}
+/* .categoryDetails1
+{
+width: 95%;
+margin: 0px 2.5%;
+} */
+.grey
+{
+color: grey;
+}
+.product
+{
+width:90%;
+margin: 0 5%;
+/* border: 1px solid red;
+box-sizing: border-box; */
+text-decoration: none;
+float: left;
+border-radius: 5px;
+}
+.product
+{
+border: 1px solid rgb(218, 212, 212);
+}
+.product:hover
+{
+border: 2px solid rgb(11, 159, 245);
+}
+.product:hover .mybtn
+{
+background-color: rgb(11, 159, 245);
+border: 1px solid rgb(11,159,245);
+}
+.productContent
+{
+float: left;
+width: 100%;
+padding: 0px 15px;
+}
+.mybtn1:hover
+{
+background-color: orangered;
+border: 1px solid orangered;
+color: white;
+}
+{% endblock styles %}
+{% block title %} Products {% endblock title %}
+{% block body %}
+<div class="row bg-primary py-3">
+    <div class="col-lg-1 pl-4">
+        <div class="text-warning text-center"><i class="fas fa-home pl-5"></i></div>
+    </div>
+
+    <div class="col-lg-5 p-0">
+        <a href="/" class="text-white text-decoration-none">Home</a>
+        <span class="px-4 text-center">|</span>
+        <span class="text-center px-2">{{card_title}}</span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-3 left p-0">
+        <nav class="nav">
+            <ul class="navbar-nav" style="width:100%;">
+                {% for cat in cat %}
+                <li class="nav-item" style="width: 100%;">
+                    <a href="#" class="nav-link bg-light pl-5 text-dark font-weight-bold mb-1" data-toggle="collapse"
+                        data-target="#cat-{{cat.id}}" aria-expanded="true"
+                        aria-controls="collapseOne">{{cat.category_name}}&nbsp;<i class="fas fa-angle-down"></i></a>
+                    <div id="cat-{{cat.id}}" class="collapse" aria-labelledby="headingOne">
+                        <div class="card-body px-5">
+                            {% for subcat in cat.subcategories %}
+                            <a href="/product/{{cat.id}}/{{subcat.subcategory_id}}"
+                                class="d-block text-secondary my-1">{{subcat.subCategory_name}}</a>
+                            {% endfor %}
+                            <a href="/product/{{cat.id}}" class="d-block text-secondary my-1">All
+                                {{cat.category_name}}</a>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+                <li class="nav-item" style="width: 100%;">
+                    <a href="/product" class="nav-link bg-light pl-5 text-dark font-weight-bold mb-1">All
+                        Products&nbsp;<i class="fas fa-angle-down"></i></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="col-lg-9 middle p-0">
+        <div class="row p-0 m-0">
+            <div class="col-lg-12 p-0">
+                <div class="CategoryDetails">
+                    <img src="{% static 'image/productimg1.jpeg' %}" alt="" width="100%" height="290">
+                    <div style="position:absolute; top:130px; left:23%; width:50%; height:50px; text-align:center;
+                        font-size:30px; background-color: white; color: orangered;" class="rounded">
+                        <a href="{% url 'specail_offers' %}" class="text-decoration-none text-danger">Best Deals For New
+                            Products</a>
+                    </div>
+                    <div style="position: absolute; top: 90px; left: 68%; height: 55px; width: 16%;"><img
+                            src="{% static 'image/specialOffer.gif' %}" alt="" width="50%" height="60px"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5 px-3 m-0">
+            <div class="col-lg-4 p-0">
+                <div class="productDetails ">
+                    <div class="productImage pl-1 pr-1">
+                        <img src="{% static 'image/proimg2.jpg' %}" alt="" width="100%" height="200px" class="rounded">
+                    </div>
+                    <div class="productContent1">
+                        <h5 class="font-weight-bolder pt-3 pb-3">Fruits & Vegetables</h5>
+                        <p class="pl-3">Sunt In Culpa Qui Officia <br>
+                            Commodo Consequat <br>
+                            Sed Do Eiusmod Tempor Incididunt
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 p-0 ">
+                <div class="productDetails">
+                    <div class="productImage pl-1 pr-1">
+                        <img src="{% static 'image/proimg3.jpg' %}" alt="" width="100%" height="200px" class="rounded">
+                    </div>
+                    <div class="productContent1">
+                        <h5 class="font-weight-bolder pt-3 pb-3">Dry Fruits</h5>
+                        <p class="pl-3">
+                            Enim Ipsam Voluptatem Officia <br>
+                            Tempora Incidunt Ut Labore Et <br>
+                            Vel Eum Iure Reprehenderit
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 p-0">
+                <div class="productDetails">
+                    <div class="productImage pl-1 pr-1">
+                        <img src="{% static 'image/proimg4.jpg' %}" alt="" width="100%" height="200px" class="rounded">
+                    </div>
+                    <div class="productContent">
+                        <h4 class="font-weight-bolder pt-3 pb-3">Vegetables</h4>
+                        <p class="pl-3">
+                            Dolorem Eum Fugiat Voluptas <br>
+                            Ut Aliquid Ex Ea Commodi <br>
+                            Magnam Aliquam Quaerat
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid mt-4">
+    <div class="row header">
+        <div class="offset-lg-3 col-lg-9 mb-5">
+            <h2 class="text-dark text-center font-weight-bold">{{card_title}}</h2>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="offset-lg-3 col-lg-9">
+            <div class="row">
+                {% for products in prod %}
+                <div class="col-lg-3 mb-5">
+                    <div class="product bg-white">
+                        <div class="productImage">
+                            <img src="{{products.product_image.url}}" alt="" width="100%" height="195px">
+                        </div>
+                        <div class="productContent">
+                            <span style="cursor:pointer" title="view {{products.product_name}}"
+                                onclick="window.location.href='/singlepro/{{products.id}}'">{{products.product_name}}</span><br><br>
+                            <span class="font-weight-bolder">{{products.product_discountPrice}}</span>&nbsp;&nbsp;<span
+                                title="original price" style="text-decoration: line-through"
+                                class="text-secondary">{{products.product_price}}</span>&nbsp;&nbsp;<span
+                                class="text-success">{{products.product_discount}}% OFF</span><br><br>
+                            {% if products.status == "AVAILABLE" %}
+                            <button class="btn btn-warning mb-2 mybtn" name="crtBtn"
+                                data-name="{{products.product_name}}" data-id="{{products.id}}">ADD TO CART</button>
+                            {% else %}
+                            <button class="btn btn-warning mb-2 mybtn" title="Currently Unavailable" disabled />ADD TO
+                            CART</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}

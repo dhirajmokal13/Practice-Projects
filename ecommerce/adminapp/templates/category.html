@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static 'img/user.png' %} " class="img-circle" alt="Avatar"> Hello,{{username}} <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+
+<!-- MAIN -->
+		<div class="main">
+			<!-- MAIN CONTENT -->
+			<div class="main-content">
+				<div class="container-fluid">
+					<h3 class="page-title">Categories</h3>
+                    <a href="{% url 'loadcategoryform' %}" class="btn btn-success float-right">Add category</a>
+					<div class="row">
+
+						<div class="col-md-12">
+
+							<!-- TABLE HOVER -->
+							<div class="panel">
+								<div class="panel-heading">
+									<h3 class="panel-title"></h3>
+								</div>
+								<div class="panel-body">
+									<div class="table-responsive">
+									   <table class="table table-hover">
+										<thead>
+											<tr>
+
+												<th>Id</th>
+												<th>Category Name</th>
+												<th>Actions</th>
+
+												<th>Status</th>
+
+											</tr>
+										</thead>
+										<tbody>
+										{% for c in data %}
+											<tr>
+
+												<td>{{c.id}}</td>
+												<td>{{c.category_name}}</td>
+												<td><a href="{% url 'edit' c.id %}">Edit</a>
+													<a href="{% url 'delete' c.id %}">Delete</a></td>
+
+												<td><a href="{% url 'status' c.id c.status %}">{{c.status}}</a></td>
+
+											</tr>
+
+										{% endfor %}
+										</tbody>
+									</table>
+									</div>
+								</div>
+							</div>
+							<!-- END TABLE HOVER -->
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- END MAIN CONTENT -->
+		</div>
+		<!-- END MAIN -->
+
+{% endblock content %}

@@ -1,0 +1,104 @@
+{% extends 'userbase.html' %}
+{% load static %}
+{% block styles %}
+        .txt_pro
+        {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .btn_pro
+        {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+        .grey
+        {
+            color: grey;
+        }
+{% endblock styles %}
+{% block title %} Wishlist {% endblock title %}
+{% block body %}
+<div class="row bg-primary py-3">
+    <div  class="col-lg-1 pl-4">
+        <div class="text-warning text-center"><i class="fas fa-home pl-5"></i></div>
+    </div>
+
+    <div class="col-lg-5 p-0">
+        <a href="/" class="text-white text-decoration-none">Home</a>
+        <span class="px-4 text-center">|</span>
+        <span class="text-center px-2">Wishlist</span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-3 left p-0">
+        <nav class="nav">
+            <ul class="navbar-nav" style="width:100%;">
+                {% for cat in cat %}
+                <li class="nav-item" style="width: 100%;" >
+                    <a href="#" class="nav-link bg-light pl-5 text-dark font-weight-bold mb-1" data-toggle="collapse" data-target="#cat-{{cat.id}}" aria-expanded="true" aria-controls="collapseOne">{{cat.category_name}}&nbsp;<i class="fas fa-angle-down"></i></a>
+                    <div id="cat-{{cat.id}}" class="collapse" aria-labelledby="headingOne">
+                        <div class="card-body px-5">
+                            {% for subcat in cat.subcategories %}
+                                    {% if subcat.id != None %}
+                                        <a href="/product/{{cat.id}}/{{subcat.subcategory_id}}" class="d-block text-secondary my-1">{{subcat.subCategory_name}}</a>
+                                    {% endif %}
+                                {% endfor %}
+                            <a href="/product/{{cat.id}}" class="d-block text-secondary my-1">All {{cat.category_name}}</a>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+                <li class="nav-item" style="width: 100%;" >
+                    <a href="/product" class="nav-link bg-light pl-5 text-dark font-weight-bold mb-1">All Products&nbsp;<i class="fas fa-angle-down"></i></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="col-lg-9 middle p-0">
+        <div class="row p-0 m-0">
+            <div class="col-lg-12 p-0 pt-5 text-center" style="font-size: 40px;">
+                <i class="far fa-heart text-center"></i>
+            </div>
+        </div>
+
+        <div class="row p-0 m-0">
+            <div class="col-lg-12 p-0 pb-2">
+                <h1 class="text-dark font-weight-bolder text-center p-0  pt-2 pb-3">My Wishlist</h1>
+            </div>
+        </div>
+        {% for m in messages %}
+            <h5 style="color:green" class="middle my-2 row mx-3">{{m}}</h5>
+         {% endfor %}
+        <div class="row p-0 mx-3 border py-2">
+            <div class="col-lg-7 font-weight-bold">
+                Product Details
+            </div>
+            <div class="col-lg-2 font-weight-bold text-center">
+                Price
+            </div>
+            <div class="col-lg-1 font-weight-bold text-center">
+                View
+            </div>
+            <div class="col-lg-2 font-weight-bold text-center">
+                Remove
+            </div>
+        </div>
+        {% for item in wishlist %}
+            <div class="row py-2 mx-3 my-4 border  shadow">
+                <div class="col-lg-7 py-0">
+                    <img src="{{item.product_image.url}}" alt="" width="14%" height="90px">&nbsp;&nbsp;<span class="text-dark">{{item.product_name}}{% if item.status == "UNAVAILABLE" %} <span class="text-danger">(unavailable)</span> {% endif %}</span>
+                </div>
+                <div class="col-lg-2 pt-4 text-center">
+                    <span class="font-weight-bold text-center">{{item.product_discountPrice}}</span>&nbsp;&nbsp;<span title="original price" style="text-decoration: line-through" class="text-secondary">{{item.product_price}}</span>&nbsp;&nbsp;<span class="text-success d-block">{{item.product_discount}}% OFF</span>
+                </div>
+                <div class="col-lg-1 font-weight-bold pt-4 text-center">
+                    <button class="btn btn-primary" onclick="window.location.href='/singlepro/{{item.product_id_id}}'">View</button>
+                </div>
+                <div class="col-lg-2 font-weight-bold text-center pt-4">
+                    <a href="/wishlist/remove/{{item.product_id_id}}/{{item.id}}" class="btn btn-warning">Remove</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock body %}

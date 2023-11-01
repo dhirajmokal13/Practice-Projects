@@ -1,0 +1,13 @@
+{% extends 'userbase.html' %}
+{% load static %}
+{% block title %} Profile - {{userData.0.uname}} {% endblock title %}
+{% block body %}
+<div class="text-center">
+
+    <h1 class="text-center mb-4">Profile Page <a href="/wishlist" class="text-decoration-none h5 text-success">(Check Wishlist)</a></h1>
+    <h4 class="text-center">Welcome: <span class="text-secondary">{{userData.0.uname}}</span></h4>
+    <h4 class="text-center">Email: <span class="text-secondary">{{userData.0.email}}</span></h4>
+    <h4 class="text-center">Mobile: <span class="text-secondary">{{userData.0.phone}}</span></h4>
+    <a class="btn btn-outline-danger text-center mt-3" style="width: 25%" href="/logout">Logout</a>
+</div>
+{% endblock body %}

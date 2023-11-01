@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+	<!-- MAIN -->
+		<div class="main">
+			<!-- MAIN CONTENT -->
+			<div class="main-content">
+				<div class="container-fluid">
+					<h3 class="page-title">Product</h3>
+					<div class="row">
+						<div class="col-md-6">
+
+
+<!-- INPUTS -->
+<div class="panel">
+    <div class="panel-heading">
+		<h3 class="panel-title"></h3>
+	</div>
+
+	<div class="panel-body">
+		<div>
+		<form method="post" action="/adminapp/updateproduct/{{std.id}}" enctype="multipart/form-data">
+			{% csrf_token %}
+
+			 Category:<select name="category" id="cat">
+                    <option>Select Category</option>
+
+						{% for c  in cat %}
+							{% if c.id == std.id %}
+								<option value="{{c.id}}" selected>{{c.category_name}}</option>
+							{% else %}
+								<option value="{{c.id}}">{{c.category_name}}</option>
+							{% endif %}
+						{% endfor %}
+
+                </select><br><br><br>
+
+			 subcategory:<select name="subcategory" id="sdl">
+
+                    {% for s  in subcat %}
+						{% if s.id == std.subCategory_id %}
+                       		<option value="{{s.id}}" selected>{{s.subCategory_name}}</option>
+						{% else %}
+							<option value="{{s.id}}" >{{s.subCategory_name}}</option>
+						{% endif %}
+                    {% endfor %}
+
+		       </select><br><br>
+
+			Product Name:<input type="text"  name="pname" class="form-control" value="{{std.product_name}}"><br>
+			Product Price:<input type="text"  name="pprice" class="form-control" value="{{std.product_price}}"><br>
+			Discount:<input type="text"  name="pdiscount" class="form-control" value="{{std.product_discount}}"><br>
+			Discount Price:<input type="text" name="pdprice" class="form-control" value="{{std.product_discountPrice}}"><br>
+			Product Image:<input type="file"  name="pimage" class="form-control" value="{{std.product_image}}"><br>
+			Product Description:<input type="textarea"  name="pdescription" class="form-control" value="{{std.product_description}}"><br>
+
+			<button type="submit">Update</button>
+
+
+		</form>
+			<script>
+			     $("#cat").change(function(){
+			        alert('hello')
+
+			     var categoryId=$(this).val()
+			         alert(categoryId)
+
+			     $.ajax({
+			       url: 'getSubcat',
+
+			       data:{
+			           category:categoryId
+			           },
+			       success:function(data)
+			       {
+			          $("#sdl").html(data)
+			       }
+			     })
+			     })
+            </script>
+		</div>
+	</div>
+
+<!-- END INPUTS -->
+	</div>
+</div>
+					  </div>
+					</div>
+				</div>
+			</div>
+{% endblock content %}
+
+<!--<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>-->
+
+
+

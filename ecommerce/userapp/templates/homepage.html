@@ -1,0 +1,291 @@
+{% extends 'userbase.html' %}
+{% load static %}
+{% block styles %}
+        .txt_pro
+        {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .btn_pro
+        {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+        .carousel-caption
+        {
+            left:2% !important;
+            right: 0 !important;
+            top: 100px !important;
+            text-align: left;
+        }
+        .categoryDetails
+        {
+            width: 95%;
+            margin: 0px 2.5%;
+        }
+        .grey
+        {
+            color: grey;
+        }
+        .product
+        {
+            width:90%;
+            margin: 0 5%;
+            /* border: 1px solid red;
+            box-sizing: border-box; */
+            text-decoration: none;
+            float: left;
+            border-radius: 5px;
+        }
+        .product
+        {
+            border: 1px solid rgb(218, 212, 212);
+        }
+        .product:hover
+        {
+            border: 2px solid rgb(11, 159, 245);
+        }
+        .product:hover .mybtn
+        {
+            background-color: rgb(11, 159, 245);
+            border: 1px solid rgb(11,159,245);
+        }
+        .productContent
+        {
+            float: left;
+            width: 100%;
+            padding: 0px 15px;
+        }
+        .mybtn1:hover
+        {
+            background-color: orangered;
+            border: 1px solid orangered;
+            color: white;
+        }
+{% endblock styles %}
+{% block title %} Home Page {% endblock title %}
+{% block body %}
+<div class="row">
+    <div class="col-lg-3 left p-0">
+        <nav class="nav">
+            <ul class="navbar-nav" style="width:100%;">
+                {% for cat in cat %}
+                    <li class="nav-item" style="width: 100%;" >
+                        <a href="#" class="nav-link bg-light pl-5 text-dark font-weight-bold mb-1" data-toggle="collapse" data-target="#cat-{{cat.id}}" aria-expanded="true" aria-controls="collapseOne">{{cat.category_name}}&nbsp;<i class="fas fa-angle-down"></i></a>
+                        <div id="cat-{{cat.id}}" class="collapse" aria-labelledby="headingOne">
+                            <div class="card-body px-5">
+                                {% for subcat in cat.subcategories %}
+                                    {% if subcat.id != None %}
+                                        <a href="/product/{{cat.id}}/{{subcat.subcategory_id}}" class="d-block text-secondary my-1">{{subcat.subCategory_name}}</a>
+                                    {% endif %}
+                                {% endfor %}
+                                <a href="/product/{{cat.id}}" class="d-block text-secondary my-1">All {{cat.category_name}}</a>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+                <li class="nav-item" style="width: 100%;" >
+                    <a href="/product" class="nav-link bg-light pl-5 text-dark font-weight-bold mb-1">All Products&nbsp;<i class="fas fa-angle-down"></i></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="col-lg-9 middle p-0">
+        <div class="carousel slide" id="slider1">
+            <ul class="carousel-indicators">
+                <li data-slide-to="0" data-target="#slider1" class="active"></li>
+                <li data-slide-to="1" data-target="#slider1"></li>
+                <li data-slide-to="2" data-target="#slider1"></li>
+            </ul>
+
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="{% static 'image/con1groceryi1.jpg' %}" alt="" width="100%" height="500"> 
+
+                    <div class="carousel-caption">
+                        <h2>Compare & Save <br><span class="text-warning">30% Money</span></h2><br>
+                        <button class="btn btn-primary">Shop Now</button>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <img src="{% static 'image/masala2img.jpg' %}" alt="" width="100%" height="500"> 
+
+                    <div class="carousel-caption">
+                        <h2>Stay Home & Get<br><strong>Your Daily</strong><br>Need's</h2><br>
+                        <button class="btn btn-primary">Shop Now</button>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <img src="{% static 'image/con1veg1.jpg' %}" alt="" width="100%" height="500"> 
+
+                    <div class="carousel-caption">
+                        <h2>Make Your<br><span class="font-weight-bold">Food</span><br>With Spicy.</h2><br>
+                        <button class="btn btn-primary">Shop Now</button>
+                    </div>
+                </div>
+
+                <div style="width:100%; background-color: rgba(0,0,0,0.5); height: 500px; position: absolute;"></div>
+            </div>
+
+            <!-- <a href="#slider1" class="carousel-control-prev" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+
+            <a href="#" data-target="#slider1" class="carousel-control-next" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>              -->
+       </div>
+    </div>
+</div>
+
+
+<div class="container-fluid mt-5">
+    <div class="row images">
+        <div class="col-lg-9 offset-lg-3">
+            <div class="row">
+                {% for offer in offers %}
+                <div class="col-lg-4 p-0">
+                    <div class="categoryDetails">
+                        <img src="{{offer.product_image.url}}" alt="" width="100%" height="205px"> 
+                        <div style="position: absolute; right: 7%; top: 20px;font-weight: bold; font-size: larger;" class="text-light">Discount Offer</div>
+                        <a style="position: absolute; right: 7%; top: 50px;font-weight: bold;" class="text-light text-decoration-none" href="{% url 'singlepro' pid=offer.id %}">{{offer.product_name}}</a>
+                        <div style="position: absolute; right: 15%; top:80px; width: 70px; height: 70px;
+                        background-color: orange;color: white; border-radius:100%; text-align: center;
+                        font-weight: bold;padding: 23px 0;font-size: large;">{{offer.product_discount}}%</div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="container-fluid bg-light mt-5 pb-5">
+    <div class="row header">
+        <div class="col-lg-12">
+            <h2 class="text-dark text-center pt-5 pb-5 font-weight-bold">Your Daily Staples</h2>
+        </div>
+    </div>
+
+    <div class="row">
+      {% for product in daily_staples %}
+        <div class="col-lg-3">
+            <div class="product bg-white">
+                <div class="productImage">
+                    <img src="{{product.product_image.url}}" alt="" width="100%" height="220px"> 
+                </div>
+                <div class="productContent">
+                    <span class="font-weight-bold" style="cursor:pointer" title="view {{product.product_name}}" onclick="window.location.href='/singlepro/{{product.id}}'">{{product.product_name}}</span><br><br>
+                    <span class="font-weight-bolder">{{product.product_discountPrice}}</span>&nbsp;&nbsp;<span title="original price" style="text-decoration: line-through" class="text-secondary">{{product.product_price}}</span>&nbsp;&nbsp;<span class="text-success">{{product.product_discount}}% OFF</span><br><br>
+                    <button class="btn btn-warning mb-2 mybtn" name="crtBtn" data-name="{{products.product_name}}" data-id="{{product.id}}">ADD TO CART</button>
+                </div>
+            </div>
+        </div>
+      {% endfor %}
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row header">
+        <div class="col-lg-12 my-5">
+            <h2 class="font-weight-bold text-dark text-center">Top Products</h2>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row bg-light">
+        <div class="col-lg-3 left">
+            <div class="row justify-text-center bg-white rounded ml-5 my-3 py-4">
+                <div class="col-lg-12">
+                    <div>
+                        <i class="fas fa-check mr-2 text-primary"></i>
+                        <a href="#" class="text-dark">ALL BRANDS</a>
+                    </div><br>
+                    <div>
+                        <i class="fas fa-check mr-2 text-primary"></i>
+                        <a href="#" class="text-dark">VGETABLES</a>
+                    </div><br>
+                    <div>
+                        <i class="fas fa-check mr-2 text-primary"></i>
+                        <a href="#" class="text-dark">Fruits</a>
+                    </div><br>
+                    <div>
+                        <i class="fas fa-check mr-2 text-primary"></i>
+                        <a href="#" class="text-dark">JUICES</a>
+                    </div><br>
+                    <div>
+                        <i class="fas fa-check mr-2 text-primary"></i>
+                        <a href="#" class="text-dark">PET FOOD</a>
+                    </div><br>
+                    <div>
+                        <i class="fas fa-check mr-2 text-primary"></i>
+                        <a href="#" class="text-dark">BREAD & BAKERY</a>
+                    </div><br>
+                    <div>
+                        <i class="fas fa-check mr-2 text-primary"></i>
+                        <a href="#" class="text-dark">CLEANING</a>
+                    </div><br>
+                    <div>
+                        <i class="fas fa-check mr-2 text-primary"></i>
+                        <a href="#" class="text-dark">SPICES</a>
+                    </div><br>
+                    <div>
+                        <i class="fas fa-check mr-2 text-primary"></i>
+                        <a href="#" class="text-dark">DRY FRUITS</a>
+                    </div><br>
+                    <div>
+                        <i class="fas fa-check mr-2 text-primary"></i>
+                        <a href="#" class="text-dark">DAIRY PRODUCTS</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-9 middle">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="categoryDetails mt-3">
+                        <img src="{% static 'image/con4img.jpg' %}" alt="" width="100%" height="503px"> 
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="categoryDetails my-3">
+                        <img src="{% static 'image/con4img1.jpg' %}" alt="" width="100%" height="250px"> 
+                        <div style="position: absolute; right: 18%; top: 35px;"><button class="btn btn-primary mybtn1">
+                              &nbsp;&nbsp;SHOP NOW&nbsp;&nbsp;</button>
+                        </div>
+                    </div>
+
+                    <div class="categoryDetails">
+                        <img src="{% static 'image/con4img2.jpg' %}" alt="" width="100%" height="235px"> 
+                        <div style="position: absolute; top:410px; left:15%;width: 25%; height: 79px; font-weight: bold;
+                             font-size: medium; background-color: orange; color: white; border-radius: 100%; text-align:
+                             center; padding-top: 15px;">Special <br>Offers
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <div class="categoryDetails my-3">
+                        <img src="{% static 'image/con4img3.jpg' %}" alt="" width="100%" height="232px"> 
+                    </div>
+
+                    <div class="categoryDetails">
+                        <img src= "{% static 'image/con4img4.jpg' %}" alt="" width="100%" height="250px">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="offset-lg-3 col-lg-9">
+            <h5 class="text-right font-weight-bold">Get 25% Off On First Order And Also Get Gift Voucher<img src="{% static 'image/specialOffer.gif' %}" alt="" width="8%" height="66px"></h5>
+        </div>
+    </div>
+</div>
+{% endblock %} 

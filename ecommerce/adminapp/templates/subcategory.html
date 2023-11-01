@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="{% static 'img/user.png' %} " class="img-circle" alt="Avatar"> Hello,{{username}} <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+
+<!-- MAIN -->
+		<div class="main">
+			<!-- MAIN CONTENT -->
+			<div class="main-content">
+				<div class="container-fluid">
+					<h3 class="page-title">SubCategories</h3>
+                    <a href="{% url 'addsubCategory' %}" class="btn btn-success float-right">Add subcategory</a>
+					<div class="row">
+
+						<div class="col-md-12">
+
+							<!-- TABLE HOVER -->
+							<div class="panel">
+								<div class="panel-heading">
+									<h3 class="panel-title"></h3>
+								</div>
+								<div class="panel-body">
+									<div class="table-responsive">
+									   <table class="table table-hover">
+										<thead>
+											<tr>
+
+												<th>ID</th>
+												<th>Catgegory Name</th>
+												<th>subCategory Name</th>
+												<th>Actions</th>
+
+												<th>Status</th>
+
+											</tr>
+										</thead>
+										<tbody>
+										{% for s in subcat %}
+											<tr>
+
+												<td>{{s.id}}</td>
+												<td>{{s.category_name}}</td>
+												<td>{{s.subCategory_name}}</td>
+												<td><a href="{% url 'editsub' s.id %}">Edit</a>
+													<a href="{% url 'deletesub' s.id %}">Delete</a></td>
+
+												<td><a href="{% url 'statussub' s.id  s.status %}">{{s.status}}</a></td>
+
+
+											</tr>
+
+										{% endfor %}
+										</tbody>
+									</table>
+									</div>
+								</div>
+							</div>
+							<!-- END TABLE HOVER -->
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- END MAIN CONTENT -->
+		</div>
+		<!-- END MAIN -->
+
+{% endblock content %}

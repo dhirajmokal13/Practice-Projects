@@ -1,0 +1,199 @@
+{% extends 'userbase.html' %}
+{% load static %}
+{% block styles %}
+        .txt_pro
+        {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .btn_pro
+        {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+        /* .categoryDetails1
+        {
+            width: 95%;
+            margin: 0px 2.5%;
+        } */
+        .grey
+        {
+            color: grey;
+        }
+        .product
+        {
+            border: 0px solid rgb(231, 225, 225);
+        }
+        .procon
+        {
+            color: rgb(148, 146, 146)
+        }
+        .mybtn:hover
+        {
+            background-color: rgba(0, 0, 255, 0.651);
+            border: 1px solid rgba(0, 0, 255, 0.651);
+        }
+        .Star:hover
+        {
+            color: rgba(0, 0, 255, 0.651);
+        }
+        .txt
+        {
+            border: none;
+            outline: none;
+            background-color:rgb(245, 247, 247);
+        }
+        .txt:focus
+        {
+            border: 1px solid rgb(60, 95, 247);
+            background-color: white;
+        }
+        .Email
+        {
+            color: black;
+        }
+{% endblock styles %}
+{% block title %} Contact Page {% endblock title %}
+{% block body %}
+<div class="row bg-primary py-3">
+    <div  class="col-lg-1 pl-4">
+        <div class="text-warning text-center"><i class="fas fa-home pl-5"></i></div>
+    </div>
+
+    <div class="col-lg-5 p-0">
+        <a href="/" class="text-white text-decoration-none">Home</a>
+        <span class="px-4 text-center">|</span>
+        <span class="text-center px-2">Contact Page</span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-3 left p-0">
+        <nav class="nav">
+            <ul class="navbar-nav" style="width:100%;">
+                {% for cat in cat %}
+                <li class="nav-item" style="width: 100%;" >
+                    <a href="#" class="nav-link bg-light pl-5 text-dark font-weight-bold mb-1" data-toggle="collapse" data-target="#cat-{{cat.id}}" aria-expanded="true" aria-controls="collapseOne">{{cat.category_name}}&nbsp;<i class="fas fa-angle-down"></i></a>
+                    <div id="cat-{{cat.id}}" class="collapse" aria-labelledby="headingOne">
+                        <div class="card-body px-5">
+                            {% for subcat in cat.subcategories %}
+                                    {% if subcat.id != None %}
+                                        <a href="/product/{{cat.id}}/{{subcat.subcategory_id}}" class="d-block text-secondary my-1">{{subcat.subCategory_name}}</a>
+                                    {% endif %}
+                                {% endfor %}
+                            <a href="/product/{{cat.id}}" class="d-block text-secondary my-1">All {{cat.category_name}}</a>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+                <li class="nav-item" style="width: 100%;" >
+                    <a href="/product" class="nav-link bg-light pl-5 text-dark font-weight-bold mb-1">All Products&nbsp;<i class="fas fa-angle-down"></i></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="col-lg-9 middle p-0">
+        <div class="row p-0 m-0">
+            <div class="col-lg-12 p-0 py-5">
+                <h1 class="text-dark font-weight-bolder text-center p-0  pt-4 pb-3">Mail Us</h1>
+            </div>
+        </div>
+
+    <form action="contact" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="row p-0 m-0">
+            <div class="col-lg-4">
+                <div class="row">
+                    <div class="col-lg-3 border-right text-warning " style="font-size: 22px;">
+                        <i class="fas fa-home px-4 py-3"></i>
+                    </div>
+                    <div class="col-lg-9">
+                        <span class="font-weight-bold px-2" style="font-size: large;">ADDRESS</span><br>
+                        <span style="font-size: small;" class="px-2">868 1ST AVENUE NYC.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <input type="text" placeholder="Name" name="name" class="py-3 px-4 txt rounded" required/>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <input type="text" placeholder="Subject" name="sub" class="py-3 px-4 txt rounded" required/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row py-3 m-0">
+            <div class="col-lg-4">
+                <div class="row">
+                    <div class="col-lg-3 border-right text-warning py-2" style="font-size: 22px;">
+                        <i class="fas fa-envelope px-4"></i>
+                    </div>
+                    <div class="col-lg-9">
+                        <span class="font-weight-bold px-2" style="font-size: large;">EMAIL</span><br>
+                        <a href="#" style="font-size: small;" class="Email text-decoration-none px-2">INFO@EXAMPLE.COM</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <input type="email" placeholder="Email" name="email" class="py-3 px-4 rounded txt" required/>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <input type="text" placeholder="Phone" name="phone" class="py-3 px-4 rounded txt" required/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row pb-3 m-0">
+            <div class="col-lg-4">
+                <div class="row">
+                    <div class="col-lg-3 border-right text-warning py-2" style="font-size: 22px;">
+                        <i class="fas fa-phone-alt px-4"></i>
+                    </div>
+                    <div class="col-lg-9">
+                        <span class="font-weight-bold px-2" style="font-size: large;">CALL TO US</span><br>
+                        <span style="font-size: small;" class="px-2">(+123) 233 2362 826</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <textarea name="comm" placeholder="Write your comments here" id="" cols="65" rows="5" class="py-3 rounded px-3 txt"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row p-0 m-0">
+            <div class="offset-lg-4 col-lg-8">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <button type='submit' name='ctnFrm' value='true' class="btn btn-block btn-primary py-3 px-5">SUBMIT</button>
+                    </div>
+
+                    <div class="col-lg-5">
+                        <button type="reset" class="btn btn-block btn-primary py-3 px-2">CLEAR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row mt-5 p-0">
+        <div class="col-lg-12 m-0 p-0">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d317716.6198857751!2d-0.43192973112366206!3d51.52860508811385!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47d8a00baf21de75%3A0x52963a5addd52a99!2sLondon%2C%20UK!5e0!3m2!1sen!2sin!4v1682843751297!5m2!1sen!2sin" width="100%" height="450px" style="border:0;padding: 0; margin: 0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" frameborder="0"></iframe>
+        </div>
+    </div>
+</div>
+{% endblock body %}

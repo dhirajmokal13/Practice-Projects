@@ -1,0 +1,138 @@
+{% extends 'userbase.html' %}
+{% load static %}
+{% block styles %}
+        .txt_pro
+        {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+        .btn_pro
+        {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+        /*.categoryDetails1
+        {
+            width: 95%;
+            margin: 0px 2.5%;
+        } */
+        .grey
+        {
+            color: grey;
+        }
+        .product
+        {
+            border: 0px solid rgb(231, 225, 225);
+        }
+        .procon
+        {
+            color: rgb(148, 146, 146)
+        }
+        .mybtn:hover
+        {
+            background-color: rgba(0, 0, 255, 0.651);
+            border: 1px solid rgba(0, 0, 255, 0.651);
+        }
+        .Star:hover
+        {
+            color: rgba(0, 0, 255, 0.651);
+        }
+{% endblock styles %}
+{% block title %} Product-{{product.product_name}} {% endblock title %}
+{% block body %}
+<div class="row bg-primary py-3">
+    <div  class="col-lg-1 pl-4">
+        <div class="text-warning text-center"><i class="fas fa-home pl-5"></i></div>
+    </div>
+
+    <div class="col-lg-5 p-0">
+        <a href="/" class="text-white text-decoration-none">Home</a>
+        <span class="px-4 text-center">|</span>
+        <span class="text-center px-2">Product - {{product.product_name}}</span>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-3 left p-0">
+        <nav class="nav">
+            <ul class="navbar-nav" style="width:100%;">
+                {% for cat in cat %}
+                <li class="nav-item" style="width: 100%;" >
+                    <a href="#" class="nav-link bg-light pl-5 text-dark font-weight-bold mb-1" data-toggle="collapse" data-target="#cat-{{cat.id}}" aria-expanded="true" aria-controls="collapseOne">{{cat.category_name}}&nbsp;<i class="fas fa-angle-down"></i></a>
+                    <div id="cat-{{cat.id}}" class="collapse" aria-labelledby="headingOne">
+                        <div class="card-body px-5">
+                            {% for subcat in cat.subcategories %}
+                                    {% if subcat.id != None %}
+                                        <a href="/product/{{cat.id}}/{{subcat.subcategory_id}}" class="d-block text-secondary my-1">{{subcat.subCategory_name}}</a>
+                                    {% endif %}
+                                {% endfor %}
+                            <a href="/product/{{cat.id}}" class="d-block text-secondary my-1">All {{cat.category_name}}</a>
+                        </div>
+                    </div>
+                </li>
+                {% endfor %}
+                <li class="nav-item" style="width: 100%;" >
+                    <a href="/product" class="nav-link bg-light pl-5 text-dark font-weight-bold mb-1">All Products&nbsp;<i class="fas fa-angle-down"></i></a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    <div class="col-lg-9 middle p-0">
+        <div class="row p-0 m-0">
+            <div class="col-lg-12 p-0">
+                <div class="CategoryDetails">
+                    <img src="{% static 'image/productimg1.jpeg' %}" alt="" width="100%" height="290"> 
+                    <div style="position:absolute; top:130px; left:23%; width:50%; height:50px; text-align:center;
+                        font-size:30px; background-color: white; color: orangered;" class="rounded">
+                        <a href="{% url 'specail_offers' %}" class="text-decoration-none text-danger">Best Deals For New Products</a>
+                    </div>
+                    <div style="position: absolute; top: 95px; left: 68%; height: 55px; width: 16%;"><img src="{% static 'image/specialOffer.gif' %}" alt="" width="50%" height="60px"></div> 
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5 m-0 p-0">
+            <div class="col-lg-12 pl-3 py-2 p-0 m-0">
+                <h3 class="text-dark text-left font-weight-bolder pl-5 py-4 p-0 d-inline">{{product.product_name}} {% if product.status == "UNAVAILABLE" %}<span class="text-danger">(unavailable)</span> {% endif %}</h3>
+                {% for m in messages %}
+                    <h5 style="color:green" class="middle mt-3-2 row mx-3 d-inline">{{m}}</h5>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="row m-0">
+            <div class="col-lg-5 p-0 px-5 py-4">
+                <div class="product shadow">
+                    <img src="{{product.product_image.url}}" alt="" width="100%" height="330px" class="product px-4 pt-3 pb-4"> 
+                </div>
+            </div>
+
+            <div class="col-lg-5 p-0 px-6 py-4">
+                <div class="product_details">
+                    <div class="Star px-4">
+                        <i class="fas fa-star text-primary"></i><i class="fas fa-star text-primary"></i><i class="fas fa-star text-primary"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+
+                    <div class="prodis text-dark font-weight-bolder pt-4 pb-2 px-3">DESCRIPTION :</div>
+
+                    <div class="procon pb-3 pt-1 px-3">
+                        {{product.product_discription}}
+                    </div>
+
+                    <div class="proprice py-3 px-3">
+                        <span class="font-weight-bold">{{product.product_discountPrice}}</span>&nbsp;&nbsp;<span title="original price" style="text-decoration: line-through" class="text-secondary">{{product.product_price}}</span>&nbsp;&nbsp; <span class="text-success">{{product.product_discount}}% OFF</span>
+                    </div>
+                    <div class="probtn py-3 px-3">
+                        {% if product.status == "AVAILABLE" %}
+                            <button class="btn btn-warning mybtn" name="crtBtn" data-name="{{product.product_name}}" data-id="{{product.id}}">ADD TO CART</button>
+                        {% else %}
+                        <button class="btn btn-warning mybtn" title="Currently Unavailable" disabled>ADD TO CART</button>
+                        {% endif %}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/wishlist/add/{{product.id}}" class="btn btn-warning mybtn px-4">WISHLIST</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}
